@@ -1,6 +1,8 @@
 object pepita {
 	var energia = 100
 
+	method energia() = energia
+	
 	method estaCansada() {
 		return energia < 50
 	}
@@ -14,25 +16,43 @@ object pepita {
 	}
 	
 	method estaFeliz() {
-		return energia > 500  && energia < 1000 
+		return energia.between(500, 1000)
 	}
 	
-	method cuantoQuiereVolar() {
-		if (energia < 400 && energia > 300) {
-			return energia / 5 + 10	
-		}
+	method kmsEntre() {
+		if (energia.between(300, 400))
+		return 10
 		
-		if (energia % 20 == 0) {
-			return energia / 5 + 15
-	    }
-	    
-	    return energia /5
+		return 0
 	}
+	method kmsMultiplo() {
+		if (energia % 20 == 0)
+		return 15
+		
+		return 0 
+	}
+	method kmsBase() {
+		return energia / 5 
+	}
+	method cuantoQuiereVolar() = self.kmsBase() + self.kmsEntre() + self.kmsMultiplo()
 	
 	method salirAComer() {
-		self.vola(5)
+		self.vola(self.distanciaHastaDeposito())
 		self.come(alpiste)
-		self.vola(5)
+		self.vola(self.distanciaHastaDeposito())
+	}
+	
+	method distanciaHastaDeposito () = 5
+	
+	method haceLoQueQuieras() {
+		
+		if (self.estaCansada())
+		self.come(alpiste)
+		
+		if(self.estaFeliz())
+		self.vola(8)
+		
+		
 	}
 }
 
@@ -57,12 +77,62 @@ object manzana {
 }
 
 object mijo {
+	var mojado = false
+	
 	method mojarse() {
-		
+		mojado = true
 	}
 	
 	method secarse() {
+		mojado = false
 		
 	}
+	
+	method energiaQueOtorga () {
+		if (mojado)
+		return 15
+		else 
+		return 20
+	}
+	
+}
+
+object canelon {
+	var salsa = true
+	var queso = true
+	
+	method ponerSalsa () {
+		salsa = true
+	}
+	
+	method ponerQueso() {
+		queso = true
+	}
+	
+	method sacarSalsa () {
+		salsa = false
+	}
+	
+	method sacarQueso() {
+		queso = false
+	}
+	
+	method energiaQueOtorga() = self.canelonBase() + self.salsa() + self.queso()
+	
+	method canelonBase() = 20
+	
+	method salsa() {
+		if (salsa)
+		return 5
+		else 
+		return 0
+	}
+	method queso() {
+		if (queso)
+		return 7
+		else
+		return 0 
+	}
+	
 	
 }
