@@ -52,6 +52,10 @@ object pepita {
 		if(self.estaFeliz())
 		self.vola(8)
 		
+	}
+	
+	method visitar(lugar) {
+		energia += lugar.energiaQueOtorga(self)
 		
 	}
 }
@@ -136,3 +140,103 @@ object canelon {
 	
 	
 }
+
+object roque { 
+	var pupilo = pepita
+	
+	method entrenar () {
+	pupilo.vola(10)
+	pupilo.come(alpiste)
+	pupilo.vola(5)
+	pupilo.haceLoQueQuieras()	
+	}
+	
+	method tuPupiloEs(nuevoPupilo) {
+		pupilo = nuevoPupilo 
+		
+	}
+	
+	method pupiloActual() = pupilo
+}
+
+object pepon {
+	var energia = 100
+	method come(comida) {
+		energia = energia + comida.energiaQueOtorga()/2
+	}
+	
+	method vola(kms) {
+		energia = energia - (1+0.5 * kms)
+		
+	}
+	
+	method haceLoQueQuieras() {
+		self.vola(1)
+
+	}
+}
+
+object pipa {
+	var kmsRecorridos = 0
+	var cantComidas  = 0
+	
+	method kmsRecorridos() = kmsRecorridos
+	
+	method cantComidas () = cantComidas 
+	
+	method come(comida) {
+		cantComidas += 1
+	}
+	
+	method vola(kms) {
+		kmsRecorridos += kms
+	}
+	
+	method haceLoQueQuieras() {
+	}
+	
+}
+
+object patagonaia {
+	method energiaQueOtorga() = 30	
+}
+
+object sierrasCordobesas {
+	method energiaQueOtorga() = 70
+}
+
+object marDelPlata {
+	var temporadaAlta = true
+	method energiaQueOtorga() {
+		if (temporadaAlta)
+		return (-20)
+		else
+		return 80
+		
+	}
+}
+
+object noroeste {
+	method energiaQueOtorga() {
+		return pepita.energia() * 0.1 
+		
+	}
+}
+
+object susana {
+	var pupilo = pepita
+	
+	method entrenar() {
+		pupilo.come(alpiste)
+		pupilo.vola(20)
+		
+	}
+	
+	method pupiloActual() = pupilo
+	
+	method tuPupiloEs(nuevoPupilo) {
+		pupilo = nuevoPupilo 
+		
+	}
+}
+
